@@ -1,0 +1,16 @@
+unmanaged implementation in class zclpp_shop_floor unique;
+
+define behavior for ZI_PP_SHOP_FLOOR alias Floor
+//late numbering
+//lock master
+//authorization master
+//etag <field_name>
+{
+  create;
+//update;
+//delete;
+
+  //action ( features : instance ) criar parameter ZI_PP_SHOP_FLOOR_POPUP;
+  action ( features : instance ) imprimir parameter ZI_PP_SHOP_FLOOR_POPUP_PRINTER;
+
+}

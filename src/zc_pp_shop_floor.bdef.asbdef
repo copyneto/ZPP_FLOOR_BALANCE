@@ -1,0 +1,8 @@
+projection;
+
+define behavior for ZC_PP_SHOP_FLOOR //alias <alias_name>
+{
+ // use create;
+  //use action criar;
+  use action imprimir;
+}

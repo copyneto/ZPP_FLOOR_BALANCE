@@ -1,0 +1,7 @@
+CLASS zclpp_shop_floor DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_pp_shop_floor.
+
+ENDCLASS.
+
+CLASS zclpp_shop_floor IMPLEMENTATION.
+
+ENDCLASS.

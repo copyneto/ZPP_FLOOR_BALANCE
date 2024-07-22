@@ -1,0 +1,1053 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xfa generator="AdobeLiveCycleDesigner_V11.0.9.20201112.2.940716_SAP" APIVersion="3.6.20316.0"?><xdp:xdp xmlns:xdp="http://ns.adobe.com/xdp/" timeStamp="2024-07-19T15:09:58Z" uuid="67616b82-1c3e-4a1e-99f7-50f45f95435a">
+<template xmlns:xliff="urn:oasis:names:tc:xliff:document:1.1" xmlns="http://www.xfa.org/schema/xfa-template/3.3/">
+   <?formServer defaultPDFRenderFormat acrobat10.0dynamic?>
+   <subform layout="tb" locale="pt_BR" name="data" restoreState="auto">
+      <pageSet>
+         <pageArea id="Page1" name="Página1">
+            <contentArea h="108.48mm" w="215.9mm"/>
+            <medium long="11in" short="8.5in" stock="letter"/>
+            <?templateDesigner expand 1?></pageArea>
+         <?templateDesigner expand 1?></pageSet>
+      <subform h="108.479mm" name="A0" w="215.9mm">
+         <subform h="38.1mm" name="CABECALHO" w="212.725mm" x="3.175mm" y="3.175mm">
+            <bind match="none"/>
+            <subform h="31.752mm" name="LOGO" w="31.751mm" x="0mm" y="3.173mm">
+               <bind match="none"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <draw h="25.4mm" name="ImagemEstática1" w="25.4mm" x="3.317mm" y="2.979mm">
+                  <value>
+                     <image contentType="image/png">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</image>
+                  </value>
+                  <ui>
+                     <imageEdit/>
+                  </ui>
+                  <desc>
+                     <text name="embeddedHref">C:\Users\petrick.grillo\OneDrive - META SERVIÇOS EM INFORMÁTICA LTDA\Imagens\COCATREL.PNG</text>
+                  </desc>
+               </draw>
+               <?templateDesigner expand 1?></subform>
+            <subform h="31.75mm" name="QRCODE_INFO" w="123.878mm" x="31.591mm" y="3.175mm">
+               <bind match="none"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+                  <edge presence="hidden"/>
+                  <edge/>
+                  <edge presence="hidden"/>
+                  <corner presence="hidden" thickness="0.175mm"/>
+                  <corner thickness="0.175mm"/>
+                  <corner presence="hidden" thickness="0.175mm"/>
+               </border>
+               <subform h="31.805mm" name="INFO" w="95.117mm" x="28.734mm">
+                  <bind match="none"/>
+                  <draw h="31.805mm" name="INFO" w="95.117mm">
+                     <ui>
+                        <textEdit/>
+                     </ui>
+                     <value>
+                        <exData contentType="text/html" xliff:rid="03A49C3E-FF0F-406B-9FCD-690DB3DAB98C">
+                           <body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/"><p style="tab-interval:0.5in;tab-stops:center 3.134in right 6.268in;font-family:Arial;letter-spacing:0in">GARANTIA DA QUALIDADE - LATICÍNIOS COCATREL</p><p style="tab-interval:0.5in;tab-stops:center 3.134in right 6.268in;font-family:Arial;letter-spacing:0in">PROGRAMAS DE AUTOCONTROLE</p><p style="font-family:Arial;letter-spacing:0in">RGQ 06-16 - CONTROLE DE PROCESSO: EMBALAGEM/ PESOS</p></body>
+                        </exData>
+                     </value>
+                     <font baselineShift="0pt" size="9pt" typeface="Times New Roman"/>
+                     <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                     <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
+                     <border>
+                        <edge presence="hidden"/>
+                        <corner presence="hidden" thickness="0.175mm"/>
+                     </border>
+                  </draw>
+                  <?templateDesigner expand 1?></subform>
+               <subform h="31.805mm" name="QRCODE" w="28.731mm" x="0.003mm" y="0mm">
+                  <bind match="none"/>
+                  <field access="readOnly" h="25.442mm" name="QRCodeBarcode1" w="22.225mm" x="3.331mm" y="3.175mm">
+                     <ui>
+                        <barcode dataLength="10" errorCorrectionLevel="2" moduleHeight="0.0167in" moduleWidth="0.0167in" type="QRCode"/>
+                     </ui>
+                     <value>
+                        <text xliff:rid="5561EE42-4EF8-49D9-A3DF-4FEEFDB4895F">1234567890</text>
+                     </value>
+                     <bind match="dataRef" ref="$record.GS_DADOS.QRCODE"/>
+                  </field>
+                  <border>
+                     <edge presence="hidden"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                  </border>
+                  <?templateDesigner expand 1?></subform>
+               <?templateDesigner expand 1?></subform>
+            <subform h="31.782mm" name="INFO2" w="50.8mm" x="155.575mm" y="3.175mm">
+               <bind match="none"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <field h="4.392mm" name="CODIGO" w="44.504mm" x="6.297mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="255"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.CODIGO"/>
+                  <desc>
+                     <text name="Anotação do schema">Char 20</text>
+                  </desc>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                     <edge/>
+                     <edge presence="hidden"/>
+                     <edge presence="hidden"/>
+                     <corner thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                  </border>
+               </field>
+               <field h="4.394mm" name="SIF" w="46.462mm" x="4.286mm" y="4.392mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="10"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.SIF"/>
+                  <desc>
+                     <text name="Anotação do schema">Campo de caracteres do comprimento 10</text>
+                  </desc>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                     <edge/>
+                     <edge presence="hidden"/>
+                     <edge presence="hidden"/>
+                     <corner thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                  </border>
+               </field>
+               <field h="4.392mm" name="REVISAO" w="40.27mm" x="10.478mm" y="8.838mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="5"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.REVISAO"/>
+                  <desc>
+                     <text name="Anotação do schema">Tabela R/2</text>
+                  </desc>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                     <edge/>
+                     <edge/>
+                     <edge presence="hidden"/>
+                     <corner thickness="0.175mm"/>
+                     <corner thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                  </border>
+               </field>
+               <draw h="4.446mm" name="REVISAO" w="12.752mm" x="0.052mm" y="8.784mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="8429E02F-4001-4F38-9FDC-C4B2B2BF4F2C">Revisão:</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="justify" vAlign="middle"/>
+                  <border>
+                     <edge presence="hidden"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <edge presence="hidden"/>
+                     <edge/>
+                     <edge presence="hidden"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <corner thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                  </border>
+               </draw>
+               <draw h="4.446mm" name="SIF" w="12.752mm" y="4.392mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="5381772E-68D7-4736-BC82-5FD2B7EB7F87">SIF:</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="justify" vAlign="middle"/>
+                  <border>
+                     <edge presence="hidden"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <corner thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <edge presence="hidden"/>
+                     <edge/>
+                     <edge presence="hidden"/>
+                  </border>
+               </draw>
+               <draw h="4.392mm" name="COD" w="12.749mm" x="0.055mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="8C3A7B6C-6D7E-43EE-B80D-686B20B43AA6">Cód.:</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="justify" vAlign="middle"/>
+                  <border>
+                     <edge presence="hidden"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <corner thickness="0.175mm"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                     <edge presence="hidden"/>
+                     <edge/>
+                     <edge presence="hidden"/>
+                  </border>
+               </draw>
+               <draw h="6.35mm" name="data" w="12.752mm" x="0.052mm" y="19.05mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="15DEE9C7-FD57-4C32-BDDF-830B98E8496C">Data:</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="justify" vAlign="middle"/>
+                  <border>
+                     <edge presence="hidden"/>
+                     <corner presence="hidden" thickness="0.175mm"/>
+                  </border>
+               </draw>
+               <field h="6.35mm" name="DATA" w="38.099mm" x="6.35mm" y="19.05mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="7"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.DATA"/>
+                  <desc>
+                     <text name="Anotação do schema">Campo de caractere de comprimento 7</text>
+                  </desc>
+               </field>
+               <?templateDesigner expand 1?></subform>
+            <?templateDesigner expand 1?></subform>
+         <subform h="63.938mm" name="DADOS" w="206.525mm" x="3.025mm" y="44.45mm">
+            <bind match="none"/>
+            <subform h="47.625mm" name="CABECALHO" w="206.375mm" x="0.001mm">
+               <bind match="none"/>
+               <draw h="9.525mm" name="DATA" w="34.925mm" x="0.149mm" y="0.091mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="D0633C30-EAC4-466C-B7CB-AAE3F76F8673">DATA</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                  </border>
+                  <?renderCache.bounds 96166 24166 0 0 1417 1417 0 0?>
+                  <?renderCache.textRun 4 DATA 0 38832 15816 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw>
+               <draw h="9.525mm" name="PRODUTO" w="56.989mm" x="35.074mm" y="0.091mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="F026E0E1-3BF1-489A-85DA-B564E8FAD556">PRODUTO</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                  </border>
+                  <?renderCache.bounds 158710 24166 0 0 1417 1417 0 0?>
+                  <?renderCache.textRun 7 PRODUTO 0 60772 15816 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw>
+               <draw h="9.525mm" name="DATAF" w="28.575mm" x="92.224mm" y="0.091mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="0259EC1B-45A2-48AA-A466-5EBA1C1078CE">DATA  FABRICAÇÃO</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                  </border>
+                  <?renderCache.bounds 78166 24166 0 0 1417 1417 0 0?>
+                  <?renderCache.textRun 6 DATA   0 29832 11016 0 0 0 "Arial" 0 0 8000 ISO-8859-1?>
+                  <?renderCache.textRun 12 FABRICAÇÃO 0 14496 20616 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw>
+               <draw h="9.525mm" name="QUANT" w="25.4mm" x="120.799mm" y="0.091mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="99AE7CE1-C7DB-4170-BEFD-7F827AB27F6C">QUANTIDADE</text>
+                  </value>
+                  <font size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                  </border>
+                  <?renderCache.bounds 69166 24166 0 0 1417 1417 0 0?>
+                  <?renderCache.textRun 10 QUANTIDADE 0 9775 15816 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw>
+               <draw h="9.527mm" name="PERDAP" w="31.75mm" x="146.199mm" y="0.091mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="65A796E5-E880-472A-9B41-F236C6CE5DD2">N° DE PERDAS  PRODUTOS</text>
+                  </value>
+                  <font baselineShift="0pt" size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                  </border>
+                  <?renderCache.bounds 87166 24172 0 0 1417 1417 0 0?>
+                  <?renderCache.textRun 14 N° DE PERDAS  0 16283 11019 0 0 0 "Arial" 0 0 8000 ISO-8859-1?>
+                  <?renderCache.textRun 9  PRODUTOS 0 21221 20619 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw>
+               <draw h="9.525mm" name="PERDAE" w="28.575mm" x="177.949mm" y="0.091mm">
+                  <ui>
+                     <textEdit/>
+                  </ui>
+                  <value>
+                     <text xliff:rid="894E2514-3528-479E-8203-315C729ED310">N° DE PERDAS EMBALAGENS</text>
+                  </value>
+                  <font baselineShift="0pt" size="8pt" typeface="Arial"/>
+                  <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+                  <para hAlign="center" marginLeft="0pt" marginRight="0pt" spaceAbove="0pt" spaceBelow="0pt" textIndent="0pt" vAlign="middle"/>
+                  <border>
+                     <edge/>
+                     <corner thickness="0.175mm"/>
+                  </border>
+                  <?renderCache.bounds 78166 24166 0 0 1417 1417 0 0?>
+                  <?renderCache.textRun 14 N° DE PERDAS  0 11783 11016 0 0 0 "Arial" 0 0 8000 ISO-8859-1?>
+                  <?renderCache.textRun 10 EMBALAGENS 0 12936 20616 0 0 0 "Arial" 0 0 8000 ISO-8859-1?></draw>
+               <draw h="38.1mm" name="Linha1" w="0in" x="120.799mm" y="9.525mm">
+                  <value>
+                     <line slope="/"/>
+                  </value>
+               </draw>
+               <draw h="38.1mm" name="Linha1" w="0in" x="146.199mm" y="9.525mm">
+                  <value>
+                     <line slope="/"/>
+                  </value>
+               </draw>
+               <draw h="38.1mm" name="Linha1" w="0in" x="177.949mm" y="9.525mm">
+                  <value>
+                     <line slope="/"/>
+                  </value>
+               </draw>
+               <draw h="38.1mm" name="Linha1" w="0in" x="206.524mm" y="9.525mm">
+                  <value>
+                     <line slope="/"/>
+                  </value>
+               </draw>
+               <draw h="38.1mm" name="Linha1" w="0in" x="35.074mm" y="9.525mm">
+                  <value>
+                     <line slope="/"/>
+                  </value>
+               </draw>
+               <draw h="38.1mm" name="Linha1" w="0in" x="0.149mm" y="9.525mm">
+                  <value>
+                     <line slope="/"/>
+                  </value>
+               </draw>
+               <?templateDesigner expand 0?>
+               <draw h="38.1mm" name="Linha1" w="0in" x="92.224mm" y="9.525mm">
+                  <value>
+                     <line slope="/"/>
+                  </value>
+               </draw>
+            </subform>
+            <subform h="39.614mm" name="DADOS" w="206.375mm" x="0.15mm" y="9.525mm">
+               <bind match="none"/>
+               <?templateDesigner expand 0?>
+               <field h="9mm" name="DATA_FAB" w="27.896mm" x="92.648mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para hAlign="center" vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="7"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.DATA_FABRICACAO"/>
+                  <desc>
+                     <text name="Anotação do schema">Campo de caractere de comprimento 7</text>
+                  </desc>
+               </field>
+               <field h="9mm" name="MATNR" w="56.765mm" x="35.149mm" y="0.119mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para hAlign="center" vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="40"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.MATNR"/>
+                  <desc>
+                     <text name="Anotação do schema">Nº material para ordem</text>
+                  </desc>
+               </field>
+               <field h="9mm" name="DESCRCAO" w="56.765mm" x="35.149mm" y="9.586mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para hAlign="center" vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="40"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.DESCRICAO"/>
+                  <desc>
+                     <text name="Anotação do schema">Nº material para ordem</text>
+                  </desc>
+               </field>
+               <field h="9mm" name="DATA" w="34.428mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para hAlign="center" vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="7"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.DATA_LIBERACAO"/>
+                  <desc>
+                     <text name="Anotação do schema">Campo de caractere de comprimento 7</text>
+                  </desc>
+               </field>
+               <field h="9mm" name="QNT_TOTAL" w="25.958mm" x="120.543mm" y="0.612mm">
+                  <ui>
+                     <textEdit>
+                        <border presence="hidden"/>
+                        <margin/>
+                     </textEdit>
+                  </ui>
+                  <font typeface="Arial"/>
+                  <margin bottomInset="1mm" leftInset="1mm" rightInset="1mm" topInset="1mm"/>
+                  <para hAlign="center" vAlign="middle"/>
+                  <caption reserve="0.01in">
+                     <para hAlign="center" vAlign="middle"/>
+                  </caption>
+                  <value>
+                     <text maxChars="7"/>
+                  </value>
+                  <bind match="dataRef" ref="$record.GS_DADOS.QNT_TOTAL"/>
+                  <desc>
+                     <text name="Anotação do schema">Campo de caractere de comprimento 7</text>
+                  </desc>
+               </field>
+            </subform>
+            <?templateDesigner expand 0?></subform>
+         <subform h="12.7mm" name="CHECK" w="206.375mm" x="3.175mm" y="92.075mm">
+            <bind match="none"/>
+            <draw h="6.35mm" name="Texto1" w="206.375mm">
+               <ui>
+                  <textEdit/>
+               </ui>
+               <value>
+                  <text xliff:rid="1F8DE7FC-1C1C-42B9-BAB9-0F7250B13EEE">MONITORADO POR:</text>
+               </value>
+               <font typeface="Arial"/>
+               <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+               <para vAlign="bottom"/>
+               <border>
+                  <edge/>
+                  <corner thickness="0.175mm"/>
+               </border>
+               <?renderCache.bounds 582166 15166 0 0 1417 1417 0 0?>
+               <?renderCache.textRun 15 MONITORADO POR: 0 1417 14479 0 0 0 "Arial" 0 0 10000 ISO-8859-1?></draw>
+            <draw h="6.35mm" name="Texto1" w="206.375mm" y="6.35mm">
+               <ui>
+                  <textEdit/>
+               </ui>
+               <value>
+                  <text xliff:rid="B02CB47F-66BE-49DA-A816-B456414850BF">VERIFICADO POR:</text>
+               </value>
+               <font typeface="Arial"/>
+               <margin bottomInset="0.5mm" leftInset="0.5mm" rightInset="0.5mm" topInset="0.5mm"/>
+               <para vAlign="bottom"/>
+               <border>
+                  <edge presence="hidden"/>
+                  <edge/>
+                  <edge/>
+                  <edge/>
+                  <corner presence="hidden"/>
+                  <corner/>
+                  <corner/>
+                  <corner/>
+               </border>
+               <?renderCache.bounds 582166 15166 0 0 1417 1417 0 0?>
+               <?renderCache.textRun 15 VERIFICADO POR: 0 1417 14479 0 0 0 "Arial" 0 0 10000 ISO-8859-1?></draw>
+            <?templateDesigner expand 0?></subform>
+         <?templateDesigner expand 1?></subform>
+      <proto/>
+      <desc>
+         <text name="version">11.0.9.20201112.2.940478.null</text>
+      </desc>
+      <?templateDesigner expand 1?>
+      <?renderCache.subset "Arial" 0 0 ISO-8859-1 4 164 47 0003001000110012001300140019001D002400250026002700280029002A002C002F0030003100320033003400350036003700380039004400470048004C00520056005700590064006D0079008300AD00CB -./016:ABCDEFGILMNOPQRSTUVadeiostvÇãó°ÃÍ?></subform>
+   <?templateDesigner DefaultPreviewDynamic 1?>
+   <?templateDesigner DefaultRunAt client?>
+   <?templateDesigner WidowOrphanControl 0?>
+   <?templateDesigner DefaultCaptionFontSettings face:Arial;size:10;weight:normal;style:normal?>
+   <?templateDesigner DefaultValueFontSettings face:Arial;size:10;weight:normal;style:normal?>
+   <?templateDesigner DefaultLanguage JavaScript?>
+   <?acrobat JavaScript strictScoping?>
+   <?templateDesigner SaveTaggedPDF 1?>
+   <?templateDesigner SavePDFWithEmbeddedFonts 1?>
+   <?templateDesigner Grid show:1, snap:0, units:0, color:ff8080, origin:(0,0), interval:(125000,125000), objsnap:0, guidesnap:0, pagecentersnap:0?>
+   <?templateDesigner FormTargetVersion 33?>
+   <?templateDesigner Rulers horizontal:1, vertical:1, guidelines:1, crosshairs:0?>
+   <?templateDesigner Zoom 87?></template>
+<config xmlns="http://www.xfa.org/schema/xci/3.0/">
+   <agent name="designer">
+      <!--  [0..n]  -->
+      <destination>pdf</destination>
+      <pdf>
+         <!--  [0..n]  -->
+         <fontInfo/>
+      </pdf>
+      <common>
+         <template>
+            <base>https://S4-DEV.COCATREL.COM.BR:443/sap/bc/fp/form/layout/</base>
+         </template>
+      </common>
+   </agent>
+   <present>
+      <!--  [0..n]  -->
+      <pdf>
+         <!--  [0..n]  -->
+         <version>1.7</version>
+         <adobeExtensionLevel>8</adobeExtensionLevel>
+      </pdf>
+      <common>
+         <data>
+            <xsl>
+               <uri/>
+            </xsl>
+            <outputXSL>
+               <uri/>
+            </outputXSL>
+         </data>
+      </common>
+      <xdp>
+         <packets>*</packets>
+      </xdp>
+   </present>
+</config>
+<connectionSet xmlns="http://www.xfa.org/schema/xfa-connection-set/2.8/">
+   <xsdConnection dataDescription="data" name="ZAFPP_ORDEM_PRODUCAO">
+      <uri/>
+      <rootElement>data</rootElement>
+   </xsdConnection>
+</connectionSet>
+<xfa:datasets xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/">
+   <xfa:data xfa:dataNode="dataGroup"/>
+   <dd:dataDescription xmlns:dd="http://ns.adobe.com/data-description/" dd:name="data">
+      <data>
+         <DATE/>
+         <GV_LOGO/>
+         <GS_DADOS>
+            <ORDEM/>
+            <MATERIAL/>
+            <CENTRO/>
+            <DATA/>
+            <DATA_LIBERACAO/>
+            <MATNR/>
+            <CODIGO/>
+            <SIF/>
+            <REVISAO/>
+            <QRCODE/>
+         </GS_DADOS>
+      </data>
+   </dd:dataDescription>
+</xfa:datasets>
+<localeSet xmlns="http://www.xfa.org/schema/xfa-locale-set/2.7/">
+   <locale desc="Português (Brasil)" name="pt_BR">
+      <calendarSymbols name="gregorian">
+         <monthNames>
+            <month>janeiro</month>
+            <month>fevereiro</month>
+            <month>março</month>
+            <month>abril</month>
+            <month>maio</month>
+            <month>junho</month>
+            <month>julho</month>
+            <month>agosto</month>
+            <month>setembro</month>
+            <month>outubro</month>
+            <month>novembro</month>
+            <month>dezembro</month>
+         </monthNames>
+         <monthNames abbr="1">
+            <month>jan</month>
+            <month>fev</month>
+            <month>mar</month>
+            <month>abr</month>
+            <month>mai</month>
+            <month>jun</month>
+            <month>jul</month>
+            <month>ago</month>
+            <month>set</month>
+            <month>out</month>
+            <month>nov</month>
+            <month>dez</month>
+         </monthNames>
+         <dayNames>
+            <day>domingo</day>
+            <day>segunda-feira</day>
+            <day>terça-feira</day>
+            <day>quarta-feira</day>
+            <day>quinta-feira</day>
+            <day>sexta-feira</day>
+            <day>sábado</day>
+         </dayNames>
+         <dayNames abbr="1">
+            <day>dom</day>
+            <day>seg</day>
+            <day>ter</day>
+            <day>qua</day>
+            <day>qui</day>
+            <day>sex</day>
+            <day>sáb</day>
+         </dayNames>
+         <meridiemNames>
+            <meridiem>AM</meridiem>
+            <meridiem>PM</meridiem>
+         </meridiemNames>
+         <eraNames>
+            <era>BC</era>
+            <era>AD</era>
+         </eraNames>
+      </calendarSymbols>
+      <datePatterns>
+         <datePattern name="full">EEEE, D' de 'MMMM' de 'YYYY</datePattern>
+         <datePattern name="long">D' de 'MMMM' de 'YYYY</datePattern>
+         <datePattern name="med">DD/MM/YYYY</datePattern>
+         <datePattern name="short">DD/MM/YY</datePattern>
+      </datePatterns>
+      <timePatterns>
+         <timePattern name="full">HH'h'MM'min'SS's' Z</timePattern>
+         <timePattern name="long">H'h'M'min'S's' Z</timePattern>
+         <timePattern name="med">HH:MM:SS</timePattern>
+         <timePattern name="short">HH:MM</timePattern>
+      </timePatterns>
+      <dateTimeSymbols>GyMdkHmsSEDFwWahKzZ</dateTimeSymbols>
+      <numberPatterns>
+         <numberPattern name="numeric">z,zz9.zzz</numberPattern>
+         <numberPattern name="currency">$ z,zz9.zz</numberPattern>
+         <numberPattern name="percent">z,zz9%</numberPattern>
+      </numberPatterns>
+      <numberSymbols>
+         <numberSymbol name="decimal">,</numberSymbol>
+         <numberSymbol name="grouping">.</numberSymbol>
+         <numberSymbol name="percent">%</numberSymbol>
+         <numberSymbol name="minus">-</numberSymbol>
+         <numberSymbol name="zero">0</numberSymbol>
+      </numberSymbols>
+      <currencySymbols>
+         <currencySymbol name="symbol">R$</currencySymbol>
+         <currencySymbol name="isoname">BRL</currencySymbol>
+         <currencySymbol name="decimal">,</currencySymbol>
+      </currencySymbols>
+      <typefaces>
+         <typeface name="Myriad Pro"/>
+         <typeface name="Minion Pro"/>
+         <typeface name="Courier Std"/>
+         <typeface name="Adobe Pi Std"/>
+         <typeface name="Adobe Hebrew"/>
+         <typeface name="Adobe Arabic"/>
+         <typeface name="Adobe Thai"/>
+         <typeface name="Kozuka Gothic Pro-VI M"/>
+         <typeface name="Kozuka Mincho Pro-VI R"/>
+         <typeface name="Adobe Ming Std L"/>
+         <typeface name="Adobe Song Std L"/>
+         <typeface name="Adobe Myungjo Std M"/>
+         <typeface name="Adobe Devanagari"/>
+      </typefaces>
+   </locale>
+</localeSet>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c015 81.161580, 2017/12/01-01:38:21        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" xmlns:pdf="http://ns.adobe.com/pdf/1.3/" xmlns:xmpMM="http://ns.adobe.com/xap/1.0/mm/" xmlns:desc="http://ns.adobe.com/xfa/promoted-desc/" rdf:about="">
+         <xmp:MetadataDate>2024-07-19T15:09:58Z</xmp:MetadataDate>
+         <xmp:CreatorTool>Adobe LiveCycle Designer 11.0</xmp:CreatorTool>
+         <pdf:Producer>Adobe LiveCycle Designer 11.0</pdf:Producer>
+         <xmpMM:DocumentID>uuid:67616b82-1c3e-4a1e-99f7-50f45f95435a</xmpMM:DocumentID>
+         <desc:version rdf:parseType="Resource">
+            <rdf:value>11.0.9.20201112.2.940478.null</rdf:value>
+            <desc:ref>/template/subform[1]</desc:ref>
+         </desc:version>
+      </rdf:Description>
+   </rdf:RDF>
+</x:xmpmeta></xdp:xdp>

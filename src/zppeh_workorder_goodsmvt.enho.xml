@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_ENHO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOOL>BADI_IMPL</TOOL>
+   <SHORTTEXT>- Confirmação automática GR</SHORTTEXT>
+   <SPOT_NAME>WORKORDER_GOODSMVT</SPOT_NAME>
+   <IMPL>
+    <ENH_BADI_IMPL_DATA>
+     <SPOT_NAME>WORKORDER_GOODSMVT</SPOT_NAME>
+     <BADI_NAME>WORKORDER_GOODSMVT</BADI_NAME>
+     <IMPL_NAME>ZWORKORDER_GOODSMVT</IMPL_NAME>
+     <IMPL_CLASS>ZCL_WORKORDER_GOODSMVT</IMPL_CLASS>
+     <ACTIVE>X</ACTIVE>
+     <IMPL_SHORTTEXT>Implementação: Business Add-In PM-/PP-/PS-/PI-Aufträge: auto. Warenbew.</IMPL_SHORTTEXT>
+     <IMPL_SHORTTEXT_ID>C1A11F6ADCB01EDF9284288DCF2C7F5E</IMPL_SHORTTEXT_ID>
+    </ENH_BADI_IMPL_DATA>
+   </IMPL>
+   <SOTR>
+    <item>
+     <HEADER>
+      <CONCEPT>C1A11F6ADCB01EDF9284173AF62E7ED4</CONCEPT>
+      <CREA_LAN>P</CREA_LAN>
+      <TRALA_TYPE>1</TRALA_TYPE>
+      <OBJID_VEC>AAI=</OBJID_VEC>
+     </HEADER>
+     <ENTRIES>
+      <SOTR_TEXT>
+       <CONCEPT>C1A11F6ADCB01EDF9284173AF62E7ED4</CONCEPT>
+       <LANGU>P</LANGU>
+       <LFD_NUM>0001</LFD_NUM>
+       <FLAG_CNTXT>X</FLAG_CNTXT>
+       <STATUS>R</STATUS>
+       <LENGTH>041</LENGTH>
+       <TEXT>- Confirmação automática GR</TEXT>
+      </SOTR_TEXT>
+     </ENTRIES>
+    </item>
+    <item>
+     <HEADER>
+      <CONCEPT>C1A11F6ADCB01EDF9284288DCF2C7F5E</CONCEPT>
+      <CREA_LAN>P</CREA_LAN>
+      <TRALA_TYPE>1</TRALA_TYPE>
+      <OBJID_VEC>AAI=</OBJID_VEC>
+     </HEADER>
+     <ENTRIES>
+      <SOTR_TEXT>
+       <CONCEPT>C1A11F6ADCB01EDF9284288DCF2C7F5E</CONCEPT>
+       <LANGU>P</LANGU>
+       <LFD_NUM>0001</LFD_NUM>
+       <FLAG_CNTXT>X</FLAG_CNTXT>
+       <STATUS>R</STATUS>
+       <LENGTH>107</LENGTH>
+       <TEXT>Implementação: Business Add-In PM-/PP-/PS-/PI-Aufträge: auto. Warenbew.</TEXT>
+      </SOTR_TEXT>
+     </ENTRIES>
+    </item>
+   </SOTR>
+   <SOTR_USE>
+    <SOTR_USE>
+     <PGMID>R3TR</PGMID>
+     <OBJECT>ENHO</OBJECT>
+     <OBJ_NAME>ZPPEH_WORKORDER_GOODSMVT</OBJ_NAME>
+     <CONCEPT>C1A11F6ADCB01EDF9284173AF62E7ED4</CONCEPT>
+     <LFD_NUM>0001</LFD_NUM>
+    </SOTR_USE>
+    <SOTR_USE>
+     <PGMID>R3TR</PGMID>
+     <OBJECT>ENHO</OBJECT>
+     <OBJ_NAME>ZPPEH_WORKORDER_GOODSMVT</OBJ_NAME>
+     <CONCEPT>C1A11F6ADCB01EDF9284288DCF2C7F5E</CONCEPT>
+     <LFD_NUM>0001</LFD_NUM>
+    </SOTR_USE>
+   </SOTR_USE>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,6 @@
+@EndUserText.label: 'Custon Entity - Busca Peso'
+@ObjectModel.query.implementedBy: 'ABAP:ZCLPP_SHOP_FLOOR_BALANCA'
+define custom entity ZI_PP_SHOP_FLOOR_BALANCA  
+{
+  key peso : char11;
+}

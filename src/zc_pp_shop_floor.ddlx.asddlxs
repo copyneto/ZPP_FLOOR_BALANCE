@@ -1,0 +1,54 @@
+@Metadata.layer: #CORE
+@UI: { lineItem:       [ { criticality: 'StatusCriticality' } ]}
+annotate view ZC_PP_SHOP_FLOOR with
+{
+  @UI.facet: [ { id:            'MfgOrderConfirmationGroup',
+                  purpose:       #STANDARD,
+                  type:          #IDENTIFICATION_REFERENCE,
+                  label:         'Shop Floor',
+                  position:      10 }  ]
+  @UI: { lineItem:       [ { position: 10 },{ type: #FOR_ACTION, dataAction: 'imprimir', label: 'Imprimir', invocationGrouping: #CHANGE_SET } ] }
+  @UI: { identification: [{ position: 10 }] }
+  @UI: { selectionField:       [ { position: 10 } ]}
+  MfgOrderConfirmationGroup;
+  @UI: { lineItem:       [ { position: 20 } ]}
+  @UI: { identification: [{ position: 20 }] }
+  @UI: { selectionField:       [ { position: 20 } ]}
+  MfgOrderConfirmation;
+  @UI: { lineItem:       [ { position: 30 } ]}
+  @UI: { identification: [{ position: 30 }] }
+  @UI: { selectionField:       [ { position: 30 } ]}
+  ManufacturingOrder;
+  @UI: { lineItem:       [ { position: 40 } ]}
+  @UI: { identification: [{ position: 40 }] }
+  ConfirmationYieldQuantity;
+  @UI: { lineItem:       [ { position: 50 } ]}
+  @UI: { identification: [{ position: 50 }] }
+  ConfirmationUnit;
+  @UI: { lineItem:       [ { position: 60 } ]}
+  @UI: { identification: [{ position: 60 }] }
+  Material;
+  @UI: { lineItem:       [ { position: 70 } ]}
+  @UI: { identification: [{ position: 70 }] }
+  Batch;
+  @UI: { lineItem:       [ { position: 80 } ]}
+  @UI: { identification: [{ position: 80 }] }
+  ean11;
+  @UI: { lineItem:       [ { position: 90 } ]}
+  @UI: { identification: [{ position: 90 }] }
+  MaterialDocument;
+  @UI: { lineItem:       [ { position: 100 } ]}
+  @UI: { identification: [{ position: 100 }] }
+  PostingDate;
+  @UI: { lineItem:       [ { position: 110 } ]}
+  @UI: { identification: [{ position: 110 }] }
+  MfgOrderConfirmationEntryDate;
+  @UI: { lineItem:       [ { position: 120 } ]}
+  @UI: { identification: [{ position: 120 }] }
+  MfgOrderConfirmationEntryTime;
+  @UI: { lineItem:       [ { position: 130 } ]}
+  @UI: { identification: [{ position: 130 }] }
+  EnteredByUser;
+  @UI: { lineItem:       [ { position: 140, criticality: 'StatusCriticality' } ]}
+  Status;
+}

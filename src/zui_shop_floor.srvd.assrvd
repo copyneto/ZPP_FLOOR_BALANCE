@@ -1,0 +1,7 @@
+@EndUserText.label: 'Service Definition - Shop Floor'
+define service ZUI_SHOP_FLOOR {
+  expose ZC_PP_SHOP_FLOOR;
+  expose ZI_PP_SHOP_FLOOR_CE as CreateCE;
+  expose ZI_PP_SHOP_FLOOR_BALANCA as BalancaCE;
+  expose ZI_PP_VH_SHOP_FLOOR_PRINTER as Printer;
+}
