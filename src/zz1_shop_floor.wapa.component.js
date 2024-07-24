@@ -1,2 +1,2 @@
-sap.ui.define(["sap/suite/ui/generic/template/lib/AppComponent"],function(e){"use strict";return e.extend("br.com.cocatrel.cokipitdeconfirmaco.Component",{metadata:{manifest:"json"}})});                                                                     
+sap.ui.define(["sap/suite/ui/generic/template/lib/AppComponent"],function(e){"use strict";return e.extend("br.com.cocatrel.shopfloor.Component",{metadata:{manifest:"json"}})});                                                                               
 //# sourceMappingURL=Component.js.map                                                                                                                                                                                                                          

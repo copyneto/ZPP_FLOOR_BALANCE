@@ -39,6 +39,5 @@ define root view entity ZC_PP_SHOP_FLOOR
       PlantName,
       @EndUserText.label: 'Status'
       Status,
-      StatusCriticality,
-      QRCode
+      StatusCriticality
 }

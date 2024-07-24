@@ -69,7 +69,7 @@ CLASS zclpp_shop_floor_balanca IMPLEMENTATION.
               "///////////////////// Logica de peso //////////////////
               lv_metodo = if_http_entity=>co_request_method_get.
               lv_destination = 'NONE'.
-
+              lv_uri = '//192.168.6.152'.
 
               me->send(
                 EXPORTING

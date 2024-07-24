@@ -1,5 +1,11 @@
 @Metadata.layer: #CORE
 @UI: { lineItem:       [ { criticality: 'StatusCriticality' } ]}
+@UI.presentationVariant: [{
+    sortOrder: [ { by: 'MfgOrderConfirmationGroup', direction: #DESC },{ by: 'MfgOrderConfirmation', direction: #DESC } ],
+  //groupBy: [ 'CompanyName', 'SalesOrder' ],
+    visualizations: [{ type: #AS_LINEITEM }]
+  //requestAtLeast: [ 'CompanyName', 'SalesOrder' ]
+}]
 annotate view ZC_PP_SHOP_FLOOR with
 {
   @UI.facet: [ { id:            'MfgOrderConfirmationGroup',
@@ -7,6 +13,9 @@ annotate view ZC_PP_SHOP_FLOOR with
                   type:          #IDENTIFICATION_REFERENCE,
                   label:         'Shop Floor',
                   position:      10 }  ]
+  
+  @UI: { lineItem:       [ { position: 5, criticality: 'StatusCriticality' } ]}
+  Status;
   @UI: { lineItem:       [ { position: 10 },{ type: #FOR_ACTION, dataAction: 'imprimir', label: 'Imprimir', invocationGrouping: #CHANGE_SET } ] }
   @UI: { identification: [{ position: 10 }] }
   @UI: { selectionField:       [ { position: 10 } ]}
@@ -49,6 +58,5 @@ annotate view ZC_PP_SHOP_FLOOR with
   @UI: { lineItem:       [ { position: 130 } ]}
   @UI: { identification: [{ position: 130 }] }
   EnteredByUser;
-  @UI: { lineItem:       [ { position: 140, criticality: 'StatusCriticality' } ]}
-  Status;
+  
 }

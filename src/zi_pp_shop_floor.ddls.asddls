@@ -34,8 +34,6 @@ define root view ZI_PP_SHOP_FLOOR
       case _MfgOrderConfirmation.IsReversed 
         when 'X' then 2
         else 3
-        end as StatusCriticality,
-        
-       cast(' ' as char60 ) as QRCode
+        end as StatusCriticality
         
 }
