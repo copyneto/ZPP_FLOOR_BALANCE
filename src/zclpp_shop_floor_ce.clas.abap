@@ -31,7 +31,7 @@ CLASS zclpp_shop_floor_ce DEFINITION
     METHODS valida_peso
       IMPORTING
         iv_dadosqr     TYPE ty_dados
-        iv_quantidade  TYPE string
+        iv_quantidade  TYPE dec_16_08_s
       EXPORTING
         ev_msgtype     TYPE char1
         ev_status_text TYPE string.
@@ -129,7 +129,7 @@ CLASS zclpp_shop_floor_ce IMPLEMENTATION.
     me->valida_peso(
       EXPORTING
         iv_dadosqr     = iv_dadosqr
-        iv_quantidade  = iv_quantidade
+        iv_quantidade  = CONV dec_16_08_s( iv_quantidade )
     IMPORTING
       ev_msgtype     = ev_msgtype
       ev_status_text = ev_status_text
@@ -165,7 +165,9 @@ CLASS zclpp_shop_floor_ce IMPLEMENTATION.
     CONSTANTS: lc_form_04 TYPE rvari_vnam VALUE 'Z_PP_FORM1_04'.
 
     DATA: lt_tvarv      TYPE tt_rsdsselopt,
-          lv_tvatv_name TYPE rvari_vnam.
+          lv_tvatv_name TYPE rvari_vnam,
+          lv_min        TYPE dec_16_08_s,
+          lv_max        TYPE dec_16_08_s.
 
     DATA(lo_tvarv) = NEW zcl_tvarv_util(  ).
 
@@ -179,8 +181,11 @@ CLASS zclpp_shop_floor_ce IMPLEMENTATION.
         output = lt_tvarv
     ).
 
-    IF lt_tvarv IS NOT INITIAL.
-      IF iv_quantidade NOT BETWEEN lt_tvarv[ 1 ]-low AND lt_tvarv[ 1 ]-high.
+    READ TABLE lt_tvarv ASSIGNING FIELD-SYMBOL(<ls_tvarv>) INDEX 1.
+    IF sy-subrc IS INITIAL.
+      lv_min = <ls_tvarv>-low. lv_max = <ls_tvarv>-high.
+
+      IF iv_quantidade < lv_min OR iv_quantidade > lv_max.
         MESSAGE e005(ZPP_SHOP_FLOOR) WITH lt_tvarv[ 1 ]-low lt_tvarv[ 1 ]-high INTO ev_status_text.
         ev_msgtype = 'E'.
       ENDIF.

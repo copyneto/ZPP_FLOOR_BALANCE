@@ -4,26 +4,23 @@ CLASS zclpp_shop_floor_balanca DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-    INTERFACES if_rap_query_provider .
+    INTERFACES: if_rap_query_provider,
+                if_apc_wsp_event_handler.
+
+    DATA: m_message TYPE string.
+
   PROTECTED SECTION.
   PRIVATE SECTION.
 
-    METHODS send
-      IMPORTING
-        !iv_destination TYPE char20
-        !iv_uri         TYPE string
-        !iv_metodo      TYPE string OPTIONAL
-        "!IS_INTERFACE type ZI_CA_GET_URL_CPI_FILTER optional
-        !it_table       TYPE ANY TABLE OPTIONAL
-        !is_structure   TYPE any OPTIONAL
-        "!IT_CASE_SENSTV type ZCTGCA_CASE_SENSVT_CPI optional
+    "! Implementa um TCP socket paraa busca o peso da balança
+    "! @parameter ev_result | Resultado (Peso da balança)
+    "! @parameter ev_msgtype | Tipo da mensagem Erro, Aviso...
+    "! @parameter ev_reason | Mensagem de erro
+    METHODS get_peso
       EXPORTING
-        "!ES_INTERFACE type ZI_CA_GET_URL_CPI_FILTER
-        !ev_request     TYPE string
-        !ev_result      TYPE string
-        !ev_code        TYPE i
-        !ev_reason      TYPE string
-        !et_return      TYPE bapiret2_t.
+        !ev_result  TYPE string
+        !ev_msgtype TYPE char1
+        !ev_reason  TYPE string.
 
 ENDCLASS.
 
@@ -40,14 +37,9 @@ CLASS zclpp_shop_floor_balanca IMPLEMENTATION.
           lt_master_keys TYPE cl_somu_form_services=>ty_gt_key,
           lt_keys        TYPE cl_somu_form_services=>ty_gt_key..
 
-    DATA: lv_content     TYPE xstring,
-          lv_destination TYPE char20,
-          lv_uri         TYPE string,
-          lv_metodo      TYPE string,
-          lv_request     TYPE string,
-          lv_result      TYPE string,
-          lv_code        TYPE i,
-          lv_reason      TYPE string.
+    DATA: lv_result  TYPE string,
+          lv_msgtype TYPE char1,
+          lv_message TYPE string.
 
     TRY.
         "Requested data
@@ -67,25 +59,17 @@ CLASS zclpp_shop_floor_balanca IMPLEMENTATION.
               ENDTRY.
 
               "///////////////////// Logica de peso //////////////////
-              lv_metodo = if_http_entity=>co_request_method_get.
-              lv_destination = 'NONE'.
-              lv_uri = '//192.168.6.152'.
-
-              me->send(
-                EXPORTING
-                  iv_destination = lv_destination
-                  iv_uri       = lv_uri
-                  iv_metodo    = lv_metodo
+              me->get_peso(
                 IMPORTING
-                  ev_request   = lv_request
                   ev_result    = lv_result
-                  ev_code      = lv_code
-                  ev_reason    = lv_reason
-                  et_return    = lt_return
+                  ev_msgtype   = lv_msgtype
+                  ev_reason    = lv_message
               ).
 
               APPEND VALUE #(
-                peso  = '10'"sy-timlo+1(2)
+                peso  = lv_result
+                msgty  = lv_msgtype
+                message = lv_message
               ) TO lt_tab.
 
               "/////////////////////////////////////////////////////////
@@ -104,75 +88,93 @@ CLASS zclpp_shop_floor_balanca IMPLEMENTATION.
     ENDTRY.
   ENDMETHOD.
 
-  METHOD send.
-    CONSTANTS: lc_content          TYPE string VALUE 'Content-Type',
-               lc_contentval       TYPE string VALUE 'application/json',
-               lc_x_requested_with TYPE string VALUE 'X-Requested-With'.
+  METHOD get_peso.
+    CONSTANTS: lc_tvarv_balanca TYPE rvari_vnam VALUE 'Z_PP_SHOP_FLOOR_IP_BALANCA',
+               lc_frame_t       TYPE string     VALUE '0D', "frame terminator bytes, e.g. line feed 0A
+               lc_msgid         TYPE sy-msgid   VALUE 'ZPP_SHOP_FLOOR',
+               lc_erro          TYPE sy-msgty   VALUE 'E',
+               lc_007           TYPE sy-msgno   VALUE '007',
+               lc_008           TYPE sy-msgno   VALUE '008',
+               lc_009           TYPE sy-msgno   VALUE '009'.
 
-    DATA: lo_client TYPE REF TO if_http_client.
+    DATA: lo_client          TYPE REF TO if_apc_wsp_client,
+          lo_event_handler   TYPE REF TO zclpp_shop_floor_balanca,
+          lo_message_manager TYPE REF TO if_apc_wsp_message_manager,
+          lo_message         TYPE REF TO if_apc_wsp_message.
 
-    FREE: et_return, ev_code, ev_reason, ev_request, ev_result. ", es_interface.
+    DATA: ls_frame TYPE apc_tcp_frame,
+          lv_host_tvarv TYPE string.
 
-    cl_http_client=>create_by_destination( EXPORTING  destination              = iv_destination "tabela de parametro
-                                           IMPORTING  client                   = lo_client
-                                           EXCEPTIONS argument_not_found       = 1
-                                                      destination_not_found    = 2
-                                                      destination_no_authority = 3
-                                                      plugin_not_active        = 4
-                                                      internal_error           = 5
-                                                      OTHERS                   = 6 ).
+    DATA(lo_tvarv) = NEW zcl_tvarv_util( ).
 
-    cl_http_utility=>set_request_uri( EXPORTING request = lo_client->request
-                                                uri     = iv_uri ).
-
-    IF sy-subrc IS NOT INITIAL.
-      cl_http_client=>create_by_url(
-        EXPORTING
-          url                    = iv_uri
-        IMPORTING
-          client                 = lo_client
-        EXCEPTIONS
-          argument_not_found     = 1
-          plugin_not_active      = 2
-          internal_error         = 3
-          pse_not_found          = 4
-          pse_not_distrib        = 5
-          pse_errors             = 6
-          OTHERS                 = 7
-      ).
-      IF sy-subrc IS NOT INITIAL.
+    lv_host_tvarv = lo_tvarv->get_single_value( i_param = lc_tvarv_balanca ). "Busca o IP da balança exp: 192.168.5.152:8000
+    IF lv_host_tvarv IS INITIAL.
+        MESSAGE ID lc_msgid TYPE lc_erro NUMBER lc_008 WITH lc_tvarv_balanca INTO ev_reason.
+        ev_msgtype = lc_erro.
         RETURN.
-      ENDIF.
-
     ENDIF.
 
-    lo_client->request->set_method( iv_metodo ).
-    "lo_client->request->set_content_type( EXPORTING content_type = if_rest_media_type=>gc_appl_json ).
 
-    lo_client->send( EXCEPTIONS http_communication_failure = 1 OTHERS = 99 ).
-    IF sy-subrc IS NOT INITIAL.
-      RETURN.
-    ENDIF.
+    SPLIT lv_host_tvarv AT ':' INTO: DATA(lv_host) DATA(lv_port). "separa o IP e a Porta
 
-    lo_client->receive( EXCEPTIONS http_communication_failure = 1 OTHERS = 4 ).
-    DATA(lv_response) = lo_client->response->get_data( ).
-    lo_client->response->get_status( IMPORTING code = ev_code  reason = ev_reason ).
-    ev_result = cl_bcs_convert=>xstring_to_string( iv_cp = cl_sx_mime_singlepart=>get_sx_node_codepage( )  iv_xstr = lv_response ).
+    TRY.
+        " create the event handler object,  the interface IF_APC_WSP_EVENT_HANDLER is implemented in local class lcl_apc_handler
+        CREATE OBJECT lo_event_handler.
+        " specification of TCP frame
+        ls_frame-frame_type = if_apc_tcp_frame_types=>co_frame_type_terminator. "frames are terminated with specific bytes
+        ls_frame-terminator = lc_frame_t. "frame termination bytes
+        lo_client = cl_apc_tcp_client_manager=>create( i_host = lv_host
+                                                       i_port = lv_port
+                                                       i_frame = ls_frame
+                                                       i_event_handler = lo_event_handler ).
 
-    IF ev_code NE '200' AND ev_code NE '201'.
-      et_return = VALUE #( BASE et_return ( type = 'E'
-                                            id = 'ZPP_SHOP_FLOOR'
-                                            number = '001'
-                                            message_v1 = |{ CONV symsgv( ev_code ) ALPHA = OUT }|
-                                            message_v2 = CONV #( ev_reason )
-                                            message_v3 = ev_result
-                                          ) ).
-      RETURN.
-    ENDIF.
+        " initiate the connection setup, successful connect leads to execution of ON_OPEN
+        lo_client->connect( ).
 
-    "ev_code: 200 = ok  | ev_code: 201 Criado com sucesso
-    et_return = VALUE #( BASE et_return ( type = 'S' id = 'ZPP_SHOP_FLOOR' number = ev_code ) ).
+        " wait for the a message from peer
+        CLEAR: lo_event_handler->m_message.
+        WAIT FOR PUSH CHANNELS UNTIL lo_event_handler->m_message IS NOT INITIAL UP TO 10 SECONDS. "busca o peso da balança
+        IF sy-subrc IS NOT INITIAL.
+          MESSAGE ID lc_msgid TYPE lc_erro NUMBER lc_007 INTO ev_reason.
+          ev_msgtype = lc_erro.
+          lo_client->close( i_reason = 'application closed connection!' ).
+          RETURN.
+        ENDIF.
+       "/////////////      Farmatar o valor do peso //////////////////////////
+        DATA(lv_received_message) = lo_event_handler->m_message.
+        DATA(lv_vl_peso) = CONV numeric12( lv_received_message+4(12) ).
+        ev_result = lv_vl_peso / 100000000.
+        ev_reason = lv_received_message+2(1).
+       "//////////////////////////////////////////////////////////////////////
+
+        lo_client->close( i_reason = 'closed!' ).
+
+      CATCH cx_apc_error INTO DATA(lx_apc_error).
+        MESSAGE ID lc_msgid TYPE lc_erro NUMBER lc_009 WITH lv_host_tvarv INTO DATA(lv_msg).
+        ev_msgtype = lc_erro.  ev_reason = |{ lv_msg } { lx_apc_error->get_text( ) }|.
+    ENDTRY.
 
   ENDMETHOD.
 
+  METHOD if_apc_wsp_event_handler~on_open.
+    RETURN.
+  ENDMETHOD.
+
+  METHOD if_apc_wsp_event_handler~on_message.
+    TRY.
+        m_message = i_message->get_text( ).
+      CATCH cx_apc_error INTO DATA(lx_apc_error).
+        m_message = lx_apc_error->get_text( ).
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD if_apc_wsp_event_handler~on_close.
+    RETURN.
+  ENDMETHOD.
+
+  METHOD if_apc_wsp_event_handler~on_error.
+    RETURN.
+  ENDMETHOD.
+
 ENDCLASS.
+

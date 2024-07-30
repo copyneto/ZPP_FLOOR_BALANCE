@@ -59,20 +59,20 @@ CLASS ZCL_IM_PP_ETIQUETA IMPLEMENTATION.
       FROM i_materialtext
       INTO @ls_structure-descricao
       WHERE material = @lv_material
-        AND language = @sy-langu.
+        AND language = @sy-langu. "#EC CI_NOORDER
 
     SELECT SINGLE shelflifeexpirationdate
       FROM i_batch
       INTO @ls_structure-validade
       WHERE plant    = @is_confirmation-werks
         AND material = @lv_material
-        AND batch    = @is_confirmation-uccha.
+        AND batch    = @is_confirmation-uccha. "#EC CI_NOORDER
 
     SELECT SINGLE ean11
       FROM mean
       INTO @ls_structure-barcode02
       WHERE matnr = @lv_material
-        AND eantp = 'UC'.
+        AND eantp = 'UC'. "#EC CI_NOORDER
 
     ls_structure-tara = lo_tvarv->get_single_value( i_param = lc_z_pp_form2_tara_kg ).
 
@@ -99,7 +99,7 @@ CLASS ZCL_IM_PP_ETIQUETA IMPLEMENTATION.
     ls_ctrlop-langu = sy-langu.
     ls_ctrlop-getotf = abap_false.
     ls_ctrlop-preview = abap_false.
-*    ls_compop-tddest    = lv_printer_id.
+*   ls_compop-tddest    = lv_printer_id.
     ls_compop-tdnewid   = 'X'.
 
     CALL FUNCTION lv_function

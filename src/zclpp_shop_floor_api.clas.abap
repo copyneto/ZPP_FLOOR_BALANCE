@@ -9,12 +9,9 @@ CLASS zclpp_shop_floor_api DEFINITION
       IMPORTING
         !iv_uri       TYPE string
         !iv_metodo    TYPE char6 OPTIONAL
-        "!IS_INTERFACE type ZI_CA_GET_URL_CPI_FILTER optional
         !it_table     TYPE ANY TABLE OPTIONAL
         !is_structure TYPE any OPTIONAL
-        "!IT_CASE_SENSTV type ZCTGCA_CASE_SENSVT_CPI optional
       EXPORTING
-        "!ES_INTERFACE type ZI_CA_GET_URL_CPI_FILTER
         !ev_request   TYPE string
         !ev_result    TYPE string
         !ev_code      TYPE i
@@ -74,15 +71,15 @@ CLASS zclpp_shop_floor_api IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD send.
-    CONSTANTS: lc_destination      TYPE char20 VALUE 'NONE',
-               lc_content          TYPE string VALUE 'Content-Type',
-               lc_contentval       TYPE string VALUE 'application/json',
-               lc_x_requested_with TYPE string VALUE 'X-Requested-With'.
+    CONSTANTS: lc_destination      TYPE char20 VALUE 'NONE',             ##NO_TEXT
+               lc_content          TYPE string VALUE 'Content-Type',     ##NO_TEXT
+               lc_contentval       TYPE string VALUE 'application/json', ##NO_TEXT
+               lc_x_requested_with TYPE string VALUE 'X-Requested-With'. ##NO_TEXT
 
     DATA: lo_client TYPE REF TO if_http_client.
 
     FREE: et_return, ev_code, ev_reason, ev_request, ev_result. ", es_interface.
-
+    "//////////////////////////////// Cria a conexão HTTP /////////////////////////////////////////////////////////////////////
     cl_http_client=>create_by_destination( EXPORTING  destination              = lc_destination "tabela de parametro
                                            IMPORTING  client                   = lo_client
                                            EXCEPTIONS argument_not_found       = 1
@@ -94,38 +91,38 @@ CLASS zclpp_shop_floor_api IMPLEMENTATION.
 
     cl_http_utility=>set_request_uri( EXPORTING request = lo_client->request
                                                 uri     = iv_uri ).
-
+    "/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     IF sy-subrc IS NOT INITIAL.
       et_return = me->get_messagem( sy ).
       RETURN.
     ENDIF.
-
-    lo_client->request->set_method( if_http_entity=>co_request_method_post ).
-    lo_client->request->set_content_type( EXPORTING content_type = if_rest_media_type=>gc_appl_json ).
-    lo_client->request->set_header_field( EXPORTING name  = lc_x_requested_with  value = 'X' ).
-
-    ev_request = conv_data_to_json( iv_data = is_structure ).
+    "////////////////////////////////  Cabeçalo da mensagem /////////////////////////////////////////////////////////////////////
+    lo_client->request->set_method( if_http_entity=>co_request_method_post ). "Seta para o método POST
+    lo_client->request->set_content_type( EXPORTING content_type = if_rest_media_type=>gc_appl_json ).  " 'content_type' : application/json'
+    lo_client->request->set_header_field( EXPORTING name  = lc_x_requested_with  value = 'X' )." 'X-Requested-With' : 'X'
+    "/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ev_request = conv_data_to_json( iv_data = is_structure ). "converte a estrutura em JSON
     IF ev_request IS INITIAL.
       et_return = VALUE #( BASE et_return ( type = 'A' id = 'ZPP_SHOP_FLOOR' number = '004' ) ).
       RETURN.
     ENDIF.
 
-    lo_client->request->set_cdata( ev_request ).
+    lo_client->request->set_cdata( ev_request ). "Adiciona o json no body da mensagem
 
-    lo_client->send( EXCEPTIONS http_communication_failure = 1 OTHERS = 99 ).
+    lo_client->send( EXCEPTIONS http_communication_failure = 1 OTHERS = 99 ). "Envia os dados para a API
     IF sy-subrc IS NOT INITIAL.
       et_return = me->get_messagem( sy ).
       RETURN.
     ENDIF.
-
-    lo_client->receive( EXCEPTIONS http_communication_failure = 1 OTHERS = 4 ).
+    "////////////////////////////////  Recebe a resposta /////////////////////////////////////////////////////////////////////
+    lo_client->receive( EXCEPTIONS http_communication_failure = 1 OTHERS = 4 ). "recebe a resposta
 
     DATA(lv_response) = lo_client->response->get_data( ).
 
     lo_client->response->get_status( IMPORTING code = ev_code  reason = ev_reason ).
 
     ev_result = cl_bcs_convert=>xstring_to_string( iv_cp = cl_sx_mime_singlepart=>get_sx_node_codepage( )  iv_xstr = lv_response ).
-
+   "/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     IF ev_code NE '200' AND ev_code NE '201'.
       "Falha na chamada do Serviço. Código  &1. Motivo: &2
       et_return = me->get_messagem( VALUE sy( msgno = '001'

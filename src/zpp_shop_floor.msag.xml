@@ -41,6 +41,30 @@
     <T100>
      <SPRSL>P</SPRSL>
      <ARBGB>ZPP_SHOP_FLOOR</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Erro ao conectar à balaça &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPP_SHOP_FLOOR</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Timeout occurred!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPP_SHOP_FLOOR</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>O parametro &amp;1 não está criado na STVARV</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPP_SHOP_FLOOR</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Não foi possivel conectar ao host &amp;1.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPP_SHOP_FLOOR</ARBGB>
      <MSGNR>200</MSGNR>
      <TEXT>OK</TEXT>
     </T100>

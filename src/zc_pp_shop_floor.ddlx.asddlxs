@@ -43,9 +43,9 @@ annotate view ZC_PP_SHOP_FLOOR with
   @UI: { lineItem:       [ { position: 80 } ]}
   @UI: { identification: [{ position: 80 }] }
   ean11;
-  @UI: { lineItem:       [ { position: 90 } ]}
-  @UI: { identification: [{ position: 90 }] }
-  MaterialDocument;
+//@UI: { lineItem:       [ { position: 90 } ]}
+//@UI: { identification: [{ position: 90 }] }
+//MaterialDocument;
   @UI: { lineItem:       [ { position: 100 } ]}
   @UI: { identification: [{ position: 100 }] }
   PostingDate;

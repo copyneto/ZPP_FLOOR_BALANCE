@@ -23,8 +23,8 @@ define root view entity ZC_PP_SHOP_FLOOR
       Batch,
       @EndUserText.label: 'Nº europeu do artigo (EAN)'
       ean11,
-      @EndUserText.label: 'Número do documento do material'
-      MaterialDocument,
+//    @EndUserText.label: 'Número do documento do material'
+//    MaterialDocument,
       @EndUserText.label: 'Data de lançamento'
       PostingDate,
       @EndUserText.label: 'Data de entrada da confirmação'

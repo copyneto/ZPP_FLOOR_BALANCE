@@ -65,10 +65,10 @@ FUNCTION zfmpp_print_to_spool.
   lv_extension = c_file_ext_pdf.
 
   IF iv_printer IS NOT INITIAL.
-    SELECT SINGLE patype FROM tsp03d INTO lv_patype WHERE name = iv_printer.
+    SELECT SINGLE patype FROM tsp03d INTO lv_patype WHERE name = iv_printer. "#EC CI_NOORDER
   ELSE.
     IF iv_dest IS NOT INITIAL.
-      SELECT SINGLE name patype FROM tsp03d INTO (iv_printer, lv_patype) WHERE padest = iv_dest.
+      SELECT SINGLE name patype FROM tsp03d INTO (iv_printer, lv_patype) WHERE padest = iv_dest. "#EC CI_NOORDER
     ENDIF.
   ENDIF.
 

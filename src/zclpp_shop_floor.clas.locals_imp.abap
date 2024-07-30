@@ -111,7 +111,6 @@ CLASS lhc_floor IMPLEMENTATION.
              materialname,
              batch,
              ean11,
-             materialdocument,
              postingdate,
              mfgorderconfirmationentrydate,
              mfgorderconfirmationentrytime,
@@ -133,7 +132,7 @@ CLASS lhc_floor IMPLEMENTATION.
         FOR ALL ENTRIES IN @lt_table
         WHERE plant    = @lt_table-plant
           AND material = @lt_table-material
-          AND batch    = @lt_table-batch.
+          AND batch    = @lt_table-batch. "#EC CI_NO_TRANSFORM
 
     ENDIF.
 
