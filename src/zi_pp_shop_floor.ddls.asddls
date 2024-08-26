@@ -10,7 +10,7 @@ define root view ZI_PP_SHOP_FLOOR
   left outer join I_ManufacturingOrder  as _ManufacturingOrder           on  _ManufacturingOrder.ManufacturingOrder = _MfgOrderConfirmation.ManufacturingOrder
   
   left outer join mean                  as _MEAN                         on  _MEAN.matnr = _ManufacturingOrder.Material
-                                                                         and _MEAN.eantp = 'UC'
+                                                                         and _MEAN.eantp = 'HE'
   association [1..1] to I_Plant         as _Plant                        on  $projection.Plant = _Plant.Plant                                                                          
 {
   key _MfgOrderConfirmation.MfgOrderConfirmationGroup,

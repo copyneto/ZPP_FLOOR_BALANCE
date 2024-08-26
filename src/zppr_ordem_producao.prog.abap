@@ -51,7 +51,7 @@ ls_dados-sif = lv_sif.
 ls_dados-revisao = lo_tvarv->get_single_value( i_param = lc_form_06 ).
 
 CHECK <fs_caufvd_p_tab> IS ASSIGNED.
-
+ls_dados-ordem = |{ <fs_caufvd_p_tab>-aufnr ALPHA = OUT }|.
 ls_dados-data = |{ sy-datum+4(2) }/{ sy-datum(4) }|.
 ls_dados-data_liberacao = <fs_caufvd_p_tab>-ftrmi .
 ls_dados-matnr = <fs_caufvd_p_tab>-matnr.
@@ -67,8 +67,9 @@ SELECT SINGLE operationconfirmation,
   WHERE manufacturingorder = @<fs_caufvd_p_tab>-aufnr
     AND operationcontrolprofile = @lc_pp03.
 
-ls_dados-qrcode = |{ <fs_caufvd_p_tab>-aufnr }{ <fs_caufvd_p_tab>-matnr }{ <fs_caufvd_p_tab>-werks }{ <fs_caufvd_p_tab>-sbmeh }{ ls_operationconfirmation-operationconfirmation }{ ls_operationconfirmation-manufacturingordersequence }{
-ls_operationconfirmation-manufacturingordersequence }|.
+ls_dados-qrcode = |{ <fs_caufvd_p_tab>-aufnr }{ <fs_caufvd_p_tab>-matnr }{ <fs_caufvd_p_tab>-werks }{ <fs_caufvd_p_tab>-gmein }{ ls_operationconfirmation-operationconfirmation ALPHA = OUT }{ ls_operationconfirmation-manufacturingordersequence }{
+ls_operationconfirmation-ManufacturingOrderOperation }|.
+REPLACE ALL OCCURRENCES OF REGEX '[ ]+' IN ls_dados-qrcode WITH ''.
 
 CREATE OBJECT lo_adobeforms.
 lv_pdf_file = lo_adobeforms->get_adobe(

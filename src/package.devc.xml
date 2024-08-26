@@ -4,6 +4,8 @@
   <asx:values>
    <DEVC>
     <CTEXT>Shop Floor - Cockpit de Confirmação</CTEXT>
+    <COMP_POSID>PP</COMP_POSID>
+    <COMPONENT>HLA0009520</COMPONENT>
    </DEVC>
   </asx:values>
  </asx:abap>

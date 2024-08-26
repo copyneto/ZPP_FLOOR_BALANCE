@@ -4,23 +4,29 @@ CLASS zclpp_shop_flo_adobe DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+    "! Cria o PDF da ordem de produção
+    "! @parameter is_header | Dados da ordem
+    "! @parameter rv_pdf_file | PDF
     METHODS get_adobe
       IMPORTING
-                is_header          TYPE    zpps_ordem_producao
+                is_header          TYPE zpps_ordem_producao
       RETURNING VALUE(rv_pdf_file) TYPE xstring.
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  methods GET_NUMBER_OF_PAGES
-    importing
-      !IV_PAGES type STRING
-    returning
-      value(RV_QTD_PAGES) type I .
+    "! Total de páginas
+    "! @parameter IV_PAGES |
+    "! @parameter RV_QTD_PAGES |
+    METHODS get_number_of_pages
+      IMPORTING
+        !iv_pages           TYPE string
+      RETURNING
+        VALUE(rv_qtd_pages) TYPE i .
 ENDCLASS.
 
 
 
-CLASS ZCLPP_SHOP_FLO_ADOBE IMPLEMENTATION.
+CLASS zclpp_shop_flo_adobe IMPLEMENTATION.
 
 
   METHOD get_adobe.

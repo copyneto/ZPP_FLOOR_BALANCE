@@ -1,5 +1,5 @@
 @EndUserText.label: 'Custon Entity - Criar'
-@ObjectModel.query.implementedBy: 'ABAP:ZCLPP_SHOP_FLOOR_CE'
+@ObjectModel.query.implementedBy: 'ABAP:ZCLPP_SHOP_FLOOR_API'
 define custom entity ZI_PP_SHOP_FLOOR_CE 
  with parameters 
     P_TAG : char60,
@@ -8,4 +8,5 @@ define custom entity ZI_PP_SHOP_FLOOR_CE
 {
   key Msgty   : syst_msgty;
   key Message : char100;
+  result_xml  : abap.string(0);
 }

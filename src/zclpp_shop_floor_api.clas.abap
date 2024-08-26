@@ -5,11 +5,51 @@ CLASS zclpp_shop_floor_api DEFINITION
 
   PUBLIC SECTION.
 
+    TYPES: BEGIN OF ty_dados,
+             _order_i_d          TYPE zspp_shop_floor_api_post-_order_i_d,
+             _material           TYPE char18,
+             _plant              TYPE zspp_shop_floor_api_post-_plant,
+             _production_unit    TYPE zspp_shop_floor_api_post-_production_unit,
+             _confirmation_group TYPE zspp_shop_floor_api_post-_confirmation_group,
+             _sequence           TYPE zspp_shop_floor_api_post-_sequence,
+             _order_operation    TYPE zspp_shop_floor_api_post-_order_operation,
+             "confirmationyieldquantity TYPE   a_productionorderconf_2-confirmationyieldquantity,
+           END OF ty_dados.
+
+    INTERFACES if_rap_query_provider .
+
+  PROTECTED SECTION.
+
+  PRIVATE SECTION.
+
+    "! Faz o tratamento dos dados do QR-Code e chama o metodo de envio
+    "! @parameter iv_dadosqr | Dados do QR-Code
+    "! @parameter iv_quantidade | Peso da balança
+    "! @parameter ev_msgtype | Tipo da mensagem de retorno
+    "! @parameter ev_result | Resposta da API (XML)
+    "! @parameter ev_http_status | Status
+    "! @parameter ev_status_text | Descrição do Status
+    METHODS http_req
+      IMPORTING
+        iv_dadosqr     TYPE ty_dados
+        iv_quantidade  TYPE string
+      EXPORTING
+        ev_msgtype     TYPE char1
+        ev_result      TYPE string
+        ev_http_status TYPE i
+        ev_status_text TYPE string.
+
+    "! Faz a chamada da API e envia os dados
+    "! @parameter iv_uri | URL da API
+    "! @parameter is_structure | Dados que serão enviados
+    "! @parameter ev_request | Corpo do envio
+    "! @parameter ev_result |  Resposta da API (XML)
+    "! @parameter ev_code | Status da requisição. 201, 404, 500...
+    "! @parameter ev_reason | Descrição do Status
+    "! @parameter et_return | Tabela de mensages de erro
     METHODS send
       IMPORTING
         !iv_uri       TYPE string
-        !iv_metodo    TYPE char6 OPTIONAL
-        !it_table     TYPE ANY TABLE OPTIONAL
         !is_structure TYPE any OPTIONAL
       EXPORTING
         !ev_request   TYPE string
@@ -18,12 +58,36 @@ CLASS zclpp_shop_floor_api DEFINITION
         !ev_reason    TYPE string
         !et_return    TYPE bapiret2_t.
 
+    "! Retorna se o peso é válido
+    "! @parameter iv_dadosqr | Dados do QR-Code
+    "! @parameter iv_quantidade | Peso da balança
+    "! @parameter ev_msgtype | Tipo da mensagem de retorno
+    "! @parameter ev_status_text | Descrição do Status
+    METHODS valida_peso
+      IMPORTING
+        iv_dadosqr     TYPE ty_dados
+        iv_quantidade  TYPE dec_16_08_s
+      EXPORTING
+        ev_msgtype     TYPE char1
+        ev_status_text TYPE string.
+
+    METHODS get_messagem
+      IMPORTING
+        is_sy            TYPE sy OPTIONAL
+      RETURNING
+        VALUE(rt_return) TYPE bapiret2_t.
+
+    "! Converte uma estrutura em JSON
+    "! @parameter iv_data | Estrutura
+    "! @parameter iv_compress |
+    "! @parameter rv_json | String no formato JSON
     METHODS conv_data_to_json
       IMPORTING
         !iv_data       TYPE data
         !iv_compress   TYPE /ui2/cl_json=>bool DEFAULT ''
       RETURNING
         VALUE(rv_json) TYPE string .
+
     METHODS conv_json_to_data
       IMPORTING
         !iv_json          TYPE string
@@ -31,43 +95,166 @@ CLASS zclpp_shop_floor_api DEFINITION
       EXPORTING
         !es_structure     TYPE any
         !et_table         TYPE ANY TABLE .
-  PROTECTED SECTION.
-  PRIVATE SECTION.
-    METHODS get_messagem
-      IMPORTING
-        is_sy            TYPE sy OPTIONAL
-      RETURNING
-        VALUE(rt_return) TYPE bapiret2_t.
+
 ENDCLASS.
-
-
 
 CLASS zclpp_shop_floor_api IMPLEMENTATION.
 
-  METHOD conv_data_to_json.
+  METHOD if_rap_query_provider~select.
+    DATA: lt_tab    TYPE TABLE OF zi_pp_shop_floor_ce,
+          lt_return TYPE bapiret2_t.
+    DATA: lt_master_keys           TYPE cl_somu_form_services=>ty_gt_key.
+    DATA: lv_content               TYPE xstring.
+    DATA: lo_cl_somu_form_services TYPE REF TO cl_somu_form_services,
+          lt_keys                  TYPE cl_somu_form_services=>ty_gt_key.
 
-    IF iv_data IS INITIAL.
-      RETURN.
+
+    TRY.
+        "Requested data
+        IF io_request->is_data_requested(  ).
+
+          "Paginacao
+          DATA(lv_offset) = io_request->get_paging( )->get_offset( ).
+          DATA(lv_page_size) = io_request->get_paging( )->get_page_size( ).
+          DATA(lv_max_rows) = COND #( WHEN lv_page_size = if_rap_query_paging=>page_size_unlimited
+                                      THEN 0 ELSE lv_page_size )  .
+
+          "Recupera filtros
+          TRY.
+              TRY.
+                  DATA(lt_parameters) = io_request->get_parameters( ). "#EC CI_CONV_OK
+                  "DATA(lt_filters) = io_request->get_filter( )->get_as_ranges( ). "#EC CI_CONV_OK
+                CATCH cx_rap_query_filter_no_range INTO DATA(lo_ex_filter).
+                  DATA(lv_exp_msg) = lo_ex_filter->get_longtext( ).
+              ENDTRY.
+              "Busca os parametros da custom entity
+              DATA ls_dados TYPE ty_dados.
+              DATA lv_tag   TYPE char100.
+
+              lv_tag        =   VALUE #( lt_parameters[ parameter_name =  'P_TAG' ]-value OPTIONAL ).
+              DATA(lv_quantidade)  =   VALUE #( lt_parameters[ parameter_name =  'P_QUANTIDADE' ]-value OPTIONAL ).
+
+              "///////////////////// Logica de ciação //////////////////
+              ls_dados = lv_tag.
+
+              me->http_req(
+                EXPORTING
+                  iv_dadosqr      = ls_dados
+                  iv_quantidade   = lv_quantidade
+                IMPORTING
+                  ev_msgtype     = DATA(lv_msgtype)
+                  ev_result      = DATA(lv_result)
+                  ev_http_status = DATA(lv_http_status)
+                  ev_status_text = DATA(lv_status_text)
+              ).
+
+              APPEND VALUE #(
+                msgty  = lv_msgtype
+                message = lv_status_text
+                result_xml = lv_result
+              ) TO lt_tab.
+
+              "/////////////////////////////////////////////////////////
+              io_response->set_total_number_of_records( 1 ).
+
+*  " -------------- Send the response back to UI------------
+              io_response->set_data( lt_tab ).
+
+            CATCH cx_rap_query_filter_no_range INTO DATA(lv_range).
+              DATA(lv_msg) = lv_range->get_text( ).
+          ENDTRY.
+
+
+        ENDIF.
+      CATCH cx_rap_query_provider.
+    ENDTRY.
+  ENDMETHOD.
+
+  METHOD http_req.
+    DATA: ls_data      TYPE zspp_shop_floor_api_post.
+    DATA: lv_request TYPE string,
+          lv_result  TYPE string,
+          lv_code    TYPE i,
+          lv_reason  TYPE string,
+          lt_return  TYPE bapiret2_t.
+
+    "DATA(lo_api) = NEW zclpp_shop_floor_api( ).
+    DATA(lv_url) = |/sap/opu/odata/sap/API_PROD_ORDER_CONFIRMATION_2_SRV/ProdnOrdConf2|.
+    MOVE-CORRESPONDING iv_dadosqr TO ls_data.
+
+    ls_data-_confirmation_unit = iv_dadosqr-_production_unit.
+    ls_data-_confirmation_yield_quantity = iv_quantidade.
+
+    me->valida_peso(
+      EXPORTING
+        iv_dadosqr     = iv_dadosqr
+        iv_quantidade  = CONV dec_16_08_s( iv_quantidade )
+    IMPORTING
+      ev_msgtype     = ev_msgtype
+      ev_status_text = ev_status_text
+    ).
+
+    IF ev_msgtype EQ 'E'.
+        RETURN.
     ENDIF.
 
-    /ui2/cl_json=>serialize( EXPORTING data        = iv_data
-                                       compress    = iv_compress
-                                       pretty_name = /ui2/cl_json=>pretty_mode-camel_case
-                             RECEIVING r_json      = rv_json ).
+    me->send(
+      EXPORTING
+        iv_uri       = lv_url
+        is_structure = ls_data
+      IMPORTING
+        ev_request   = lv_request
+        ev_result    = ev_result
+        ev_code      = lv_code
+        ev_reason    = lv_reason
+        et_return    = lt_return
+    ).
+
+    IF lt_return IS NOT INITIAL.
+      READ TABLE lt_return ASSIGNING FIELD-SYMBOL(<fs_return>) INDEX 1.
+      MESSAGE ID <fs_return>-id TYPE <fs_return>-type NUMBER <fs_return>-number
+          WITH <fs_return>-message_v1 <fs_return>-message_v2 <fs_return>-message_v3 <fs_return>-message_v4 INTO ev_status_text.
+
+      ev_msgtype = <fs_return>-type.
+    ENDIF.
 
   ENDMETHOD.
 
-  METHOD conv_json_to_data.
-    IF iv_json IS INITIAL.
-      RETURN.
-    ENDIF.
-    " Estrutura
-    /ui2/cl_json=>deserialize( EXPORTING json           = iv_json
-                               CHANGING  data           = es_structure ).
+  METHOD valida_peso.
+    CONSTANTS: lc_form_04 TYPE rvari_vnam VALUE 'Z_PP_FORM1_04'.
 
-    " Tabela
-    /ui2/cl_json=>deserialize( EXPORTING json           = iv_json
-                               CHANGING  data           = et_table ).
+    DATA: lt_tvarv      TYPE tt_rsdsselopt,
+          lv_tvatv_name TYPE rvari_vnam,
+          lv_min        TYPE dec_16_08_s,
+          lv_max        TYPE dec_16_08_s.
+
+    IF iv_quantidade IS INITIAL.
+        MESSAGE e010(ZPP_SHOP_FLOOR) INTO ev_status_text.
+        ev_msgtype = 'E'.
+        RETURN.
+    ENDIF.
+
+    DATA(lo_tvarv) = NEW zcl_tvarv_util(  ).
+
+    lv_tvatv_name = |ZPP_{ iv_dadosqr-_material ALPHA = OUT }|.   "tvarv vai existir um parametro pra cada material material
+
+    lo_tvarv->get_values(
+      EXPORTING
+        input  = lv_tvatv_name
+        type   = 'S'
+      IMPORTING
+        output = lt_tvarv
+    ).
+
+    READ TABLE lt_tvarv ASSIGNING FIELD-SYMBOL(<ls_tvarv>) INDEX 1.
+    IF sy-subrc IS INITIAL.
+      lv_min = <ls_tvarv>-low. lv_max = <ls_tvarv>-high.
+
+      IF iv_quantidade < lv_min OR iv_quantidade > lv_max.
+        MESSAGE e005(ZPP_SHOP_FLOOR) WITH lt_tvarv[ 1 ]-low lt_tvarv[ 1 ]-high INTO ev_status_text.
+        ev_msgtype = 'E'.
+      ENDIF.
+    ENDIF.
   ENDMETHOD.
 
   METHOD send.
@@ -128,7 +315,7 @@ CLASS zclpp_shop_floor_api IMPLEMENTATION.
       et_return = me->get_messagem( VALUE sy( msgno = '001'
                                               msgv1 = |{ CONV symsgv( ev_code ) ALPHA = OUT }|
                                               msgv2 = CONV #( ev_reason )
-                                              msgv3 = ev_result ) ).
+                                            ) ).
      RETURN.
     ENDIF.
 
@@ -144,7 +331,6 @@ CLASS zclpp_shop_floor_api IMPLEMENTATION.
       ls_sy-msgid = 'ZPP_SHOP_FLOOR'.
     ENDIF.
 
-
     rt_return = VALUE #( BASE rt_return (
                                   type       = ls_sy-msgty
                                   id         = ls_sy-msgid
@@ -156,6 +342,32 @@ CLASS zclpp_shop_floor_api IMPLEMENTATION.
                              )
                        ).
 
+  ENDMETHOD.
+
+  METHOD conv_data_to_json.
+
+    IF iv_data IS INITIAL.
+      RETURN.
+    ENDIF.
+
+    /ui2/cl_json=>serialize( EXPORTING data        = iv_data
+                                       compress    = iv_compress
+                                       pretty_name = /ui2/cl_json=>pretty_mode-camel_case
+                             RECEIVING r_json      = rv_json ).
+
+  ENDMETHOD.
+
+  METHOD conv_json_to_data.
+    IF iv_json IS INITIAL.
+      RETURN.
+    ENDIF.
+    " Estrutura
+    /ui2/cl_json=>deserialize( EXPORTING json           = iv_json
+                               CHANGING  data           = es_structure ).
+
+    " Tabela
+    /ui2/cl_json=>deserialize( EXPORTING json           = iv_json
+                               CHANGING  data           = et_table ).
   ENDMETHOD.
 
 ENDCLASS.

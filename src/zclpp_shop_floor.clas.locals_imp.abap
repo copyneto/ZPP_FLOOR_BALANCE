@@ -11,9 +11,6 @@ CLASS lhc_floor DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS read FOR READ
       IMPORTING keys FOR READ floor RESULT result.
 
-*    METHODS criar FOR MODIFY
-*      IMPORTING keys FOR ACTION Floor~criar.
-
     METHODS imprimir FOR MODIFY
       IMPORTING keys FOR ACTION floor~imprimir.
 
@@ -25,45 +22,21 @@ ENDCLASS.
 CLASS lhc_floor IMPLEMENTATION.
 
   METHOD create.
-    DATA: lt_msg TYPE TABLE OF ty_msg,
-          lv_msg TYPE ty_msg-message.
-
-    IF lt_msg IS INITIAL.
-      MESSAGE ID 'ZPP_SHOP_FLOOR' TYPE 'E' NUMBER '003' INTO lv_msg.
-      APPEND VALUE #( msg_type = 'E' message = lv_msg ) TO lt_msg.
-    ENDIF.
-
-    reported-floor = VALUE #(
-          FOR ls_messages IN lt_msg (
-             %msg = new_message_with_text(
-                  severity = COND #(
-                                       WHEN ls_messages-msg_type EQ 'E' THEN if_abap_behv_message=>severity-error
-                                       WHEN ls_messages-msg_type EQ 'S' THEN if_abap_behv_message=>severity-success
-                                       WHEN ls_messages-msg_type EQ 'A' THEN if_abap_behv_message=>severity-warning
-                                       ELSE if_abap_behv_message=>severity-none
-                                    )
-                  text = ls_messages-message
-             )
-          )
-    ).
+    RETURN.
   ENDMETHOD.
 
   METHOD read.
     RETURN.
   ENDMETHOD.
 
-*  METHOD criar.
-*    RETURN.
-*  ENDMETHOD.
-
   METHOD imprimir.
 
     CONSTANTS lc_form TYPE tdsfname VALUE 'ZPP_ETIQUETA_SHOPFLOOR'.
-    CONSTANTS lc_z_pp_form2_tara_kg TYPE rvari_vnam VALUE 'Z_PP_FORM2_TARA_KG'.
+    CONSTANTS lc_z_pp_form2_tara_kg TYPE rvari_vnam VALUE 'Z_PP_FORM2_TARA_KG_'.
     CONSTANTS lc_printter_id TYPE rvari_vnam VALUE 'Z_PP_FORM2_IMPRESSORA'.
 
     DATA: lv_function   TYPE rs38l_fnam.
-    DATA: ls_structure TYPE zppsetiquetashop,
+    DATA: ls_structure TYPE zspp_etiqueta_shop,
           ls_compop    TYPE ssfcompop.
     DATA: ls_ctrlop TYPE ssfctrlop,
           ls_otf    TYPE ssfcrescl.
@@ -78,7 +51,7 @@ CLASS lhc_floor IMPLEMENTATION.
     lo_tvarv = NEW zcl_tvarv_util( ).
 
 
-    lv_printer_id = lo_tvarv->get_single_value( i_param = lc_printter_id ). "Busca se tem impressora cadastrada na stvarv
+   "lv_printer_id = lo_tvarv->get_single_value( i_param = lc_printter_id ). "Busca se tem impressora cadastrada na stvarv
     IF lv_printer_id IS INITIAL.
         READ TABLE keys ASSIGNING FIELD-SYMBOL(<fs_key>) INDEX 1.
         IF sy-subrc IS INITIAL.
@@ -104,7 +77,6 @@ CLASS lhc_floor IMPLEMENTATION.
       SELECT mfgorderconfirmationgroup,
              mfgorderconfirmation,
              manufacturingorder,
-             confirmationyieldquantity,
              confirmationyieldquantity,
              confirmationunit,
              material,
@@ -136,24 +108,24 @@ CLASS lhc_floor IMPLEMENTATION.
 
     ENDIF.
 
-    DATA(lv_tara) = lo_tvarv->get_single_value( i_param = lc_z_pp_form2_tara_kg ).
-    REPLACE ',' IN lv_tara WITH '.'.
-
     LOOP AT lt_table INTO DATA(ls_table).
+      DATA(lv_param_name_tvarv) = CONV rvari_vnam( |{ lc_z_pp_form2_tara_kg }{ ls_table-material ALPHA = OUT }| ).
+      DATA(lv_tara) = lo_tvarv->get_single_value( i_param = lv_param_name_tvarv ).
+      REPLACE ',' IN lv_tara WITH '.'.
 
-      ls_structure-tara = lv_tara.
+      ls_structure-tara         = lv_tara.
       ls_structure-codigo       = ls_table-material.
       ls_structure-descricao    = ls_table-materialname.
-*     ls_structure-peso         = lt_table--gmnga.
-*     ls_structure-peso_liquido = |{ is_confirmation-gmnga }-{  ls_structure-tara }|
-      ls_structure-ordem        = ls_table-mfgorderconfirmationgroup.
-      ls_structure-producao     = ls_table-manufacturingorder.
+      ls_structure-peso         = ls_table-confirmationyieldquantity.
+      ls_structure-peso_liquido = ( ls_table-confirmationyieldquantity - ls_structure-tara ).
+      ls_structure-ordem        = ls_table-ManufacturingOrder.
+      ls_structure-producao     = ls_table-mfgorderconfirmationentrydate.
       ls_structure-lote         = ls_table-batch.
       ls_structure-usuario      = sy-uname.
       ls_structure-impressao    = |{ sy-datum }{ sy-uzeit }|.
       ls_structure-barcode02    = ls_table-ean11.
-      ls_structure-barcode01 = | { ls_structure-codigo }{ ls_structure-peso }{ ls_structure-tara }{  ls_structure-peso_liquido }{ ls_structure-producao }{ ls_structure-lote }|.
-
+      ls_structure-barcode01    = |{ ls_structure-codigo }{ ls_structure-peso }{ ls_structure-tara }{ ls_structure-peso_liquido }{ ls_structure-producao }{ ls_structure-lote }|.
+      REPLACE ALL OCCURRENCES OF REGEX '[ ]+' IN ls_structure-barcode01 WITH ''.
       TRY.
           ls_structure-validade     = lt_batch[ plant = ls_table-plant material = ls_table-material batch = ls_table-batch ]-shelflifeexpirationdate.
         CATCH cx_sy_itab_line_not_found.

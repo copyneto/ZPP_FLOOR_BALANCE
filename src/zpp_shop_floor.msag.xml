@@ -65,6 +65,12 @@
     <T100>
      <SPRSL>P</SPRSL>
      <ARBGB>ZPP_SHOP_FLOOR</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>A quantidade não pode ser zero</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>P</SPRSL>
+     <ARBGB>ZPP_SHOP_FLOOR</ARBGB>
      <MSGNR>200</MSGNR>
      <TEXT>OK</TEXT>
     </T100>

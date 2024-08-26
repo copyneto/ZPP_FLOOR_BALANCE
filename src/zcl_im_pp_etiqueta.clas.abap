@@ -23,18 +23,21 @@ CLASS ZCL_IM_PP_ETIQUETA IMPLEMENTATION.
   METHOD if_ex_workorder_confirm~at_save.
 
     CONSTANTS lc_form TYPE tdsfname VALUE 'ZPP_ETIQUETA_SHOPFLOOR'.
-    CONSTANTS lc_z_pp_form2_tara_kg TYPE rvari_vnam VALUE 'Z_PP_FORM2_TARA_KG'.
+    CONSTANTS lc_z_pp_form2_tara_kg TYPE rvari_vnam VALUE 'Z_PP_FORM2_TARA_KG_'.
     CONSTANTS lc_printter_id TYPE rvari_vnam VALUE 'Z_PP_FORM2_IMPRESSORA'.
-    DATA: lv_function   TYPE rs38l_fnam.
-    DATA: lv_printer_id  TYPE rspopname.
-    DATA: ls_structure TYPE zppsetiquetashop,
-          ls_compop    TYPE ssfcompop.
-    DATA: ls_ctrlop TYPE ssfctrlop,
-          ls_otf    TYPE ssfcrescl.
 
-    DATA ls_order TYPE bapi_pp_order_objects.
-    DATA lt_operation TYPE TABLE OF bapi_order_operation1.
     DATA: lo_tvarv TYPE REF TO zcl_tvarv_util.
+    DATA: lt_operation TYPE TABLE OF bapi_order_operation1.
+    DATA: ls_order     TYPE bapi_pp_order_objects,
+          ls_structure TYPE zspp_etiqueta_shop,
+          ls_compop    TYPE ssfcompop,
+          ls_ctrlop    TYPE ssfctrlop,
+          ls_otf       TYPE ssfcrescl.
+
+    DATA: lv_function   TYPE rs38l_fnam,
+          lv_printer_id TYPE rspopname,
+          lv_material   TYPE i_manufacturingorder-Material,
+          lv_batch      TYPE i_manufacturingorder-Batch.
 
     CREATE OBJECT lo_tvarv.
 
@@ -50,9 +53,9 @@ CLASS ZCL_IM_PP_ETIQUETA IMPLEMENTATION.
         no_function_module = 2
         OTHERS             = 3.
 
-    SELECT SINGLE product
+    SELECT SINGLE product, Batch
       FROM i_manufacturingorder
-      INTO @DATA(lv_material)
+      INTO ( @lv_material, @lv_batch )
       WHERE manufacturingorder = @is_confirmation-aufnr.
 
     SELECT SINGLE materialname
@@ -66,26 +69,28 @@ CLASS ZCL_IM_PP_ETIQUETA IMPLEMENTATION.
       INTO @ls_structure-validade
       WHERE plant    = @is_confirmation-werks
         AND material = @lv_material
-        AND batch    = @is_confirmation-uccha. "#EC CI_NOORDER
+        AND batch    = @lv_batch. "#EC CI_NOORDER
 
     SELECT SINGLE ean11
       FROM mean
       INTO @ls_structure-barcode02
       WHERE matnr = @lv_material
-        AND eantp = 'UC'. "#EC CI_NOORDER
+        AND eantp = 'HE'. "#EC CI_NOORDER
 
-    ls_structure-tara = lo_tvarv->get_single_value( i_param = lc_z_pp_form2_tara_kg ).
+    DATA(lv_param_name_tvarv) = CONV rvari_vnam( |{ lc_z_pp_form2_tara_kg }{ lv_material ALPHA = OUT }| ).
+    ls_structure-tara = lo_tvarv->get_single_value( i_param = lv_param_name_tvarv ).
 
     ls_structure-codigo       = lv_material.
     ls_structure-peso         = is_confirmation-gmnga.
-    ls_structure-peso_liquido = |{ is_confirmation-gmnga }-{  ls_structure-tara }|.
+    ls_structure-peso_liquido = ( is_confirmation-gmnga - ls_structure-tara ).
     ls_structure-ordem        = is_confirmation-aufnr.
     ls_structure-producao     = is_confirmation-ersda.
-    ls_structure-lote         = is_confirmation-uccha.
+    ls_structure-lote         = lv_batch. "is_confirmation-uccha.
     ls_structure-usuario      = sy-uname.
     ls_structure-impressao    = |{ sy-datum }{ sy-uzeit }|.
 
-    ls_structure-barcode01 = | { ls_structure-codigo }{ is_confirmation-gmnga }{ ls_structure-tara }{  ls_structure-peso_liquido }{ ls_structure-producao }{ ls_structure-lote }|.
+    ls_structure-barcode01 = |{ ls_structure-codigo }{ is_confirmation-gmnga }{ ls_structure-tara }{ ls_structure-peso_liquido }{ ls_structure-producao }{ ls_structure-lote }|.
+    REPLACE ALL OCCURRENCES OF REGEX '[ ]+' IN ls_structure-barcode01 WITH ''.
 
     ls_order-operations = abap_true.
 
