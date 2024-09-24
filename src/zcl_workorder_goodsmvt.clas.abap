@@ -49,6 +49,9 @@ CLASS ZCL_WORKORDER_GOODSMVT IMPLEMENTATION.
 
 
   METHOD if_ex_workorder_goodsmvt~goods_receipt.
+    CONSTANTS lc_z_pp_form2_tara_kg TYPE rvari_vnam VALUE 'Z_PP_FORM2_TARA_KG_'.
+    DATA: lv_tara TYPE ru_gmnga.
+    DATA(lo_tvarv) = new zcl_tvarv_util( ).
 
     CHECK ct_goods_receipt IS NOT INITIAL.
 
@@ -61,6 +64,9 @@ CLASS ZCL_WORKORDER_GOODSMVT IMPLEMENTATION.
 
     IF lt_required IS NOT INITIAL.
       LOOP AT ct_goods_receipt ASSIGNING FIELD-SYMBOL(<fs_goods>).
+        DATA(lv_param_name_tvarv) = CONV rvari_vnam( |{ lc_z_pp_form2_tara_kg }{ <fs_goods>-matnr ALPHA = OUT }| ).
+        lv_tara = lo_tvarv->get_single_value( i_param = lv_param_name_tvarv ).
+        <fs_goods>-erfmg -= lv_tara.
         <fs_goods>-hsdat = sy-datum.
       ENDLOOP.
     ELSE.

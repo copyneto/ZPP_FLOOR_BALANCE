@@ -40,6 +40,13 @@
     <CL_FP_GLOBAL_DEFINITIONS classVersion="1">
      <GLOBAL_DATA>
       <SFPGDATA>
+       <NAME>GV_IMG_QRCODE</NAME>
+       <TYPING>TYPE</TYPING>
+       <TYPENAME>XSTRING</TYPENAME>
+       <DEFAULTVAL/>
+       <CONSTANT/>
+      </SFPGDATA>
+      <SFPGDATA>
        <NAME>GV_LOGO</NAME>
        <TYPING>TYPE</TYPING>
        <TYPENAME>XSTRING</TYPENAME>
@@ -78,15 +85,35 @@
      <INTERFACE_DATA href="#o1"/>
     </CL_FP_INTERFACE_DATA_CHANGED>
     <CL_FP_CODING classVersion="1">
-     <INPUT_PARAMETERS/>
-     <OUTPUT_PARAMETERS/>
+     <INPUT_PARAMETERS>
+      <FPPARAMETER>GS_DADOS</FPPARAMETER>
+     </INPUT_PARAMETERS>
+     <OUTPUT_PARAMETERS>
+      <FPPARAMETER>GV_IMG_QRCODE</FPPARAMETER>
+     </OUTPUT_PARAMETERS>
      <INITIALIZATION>
-      <FPCLINE>DATA: lv_tdobname TYPE tdobname.</FPCLINE>
+      <FPCLINE>DATA: lv_tdobname   TYPE tdobname,</FPCLINE>
+      <FPCLINE>      lv_qrcode_txt TYPE string.</FPCLINE>
       <FPCLINE/>
       <FPCLINE>lv_tdobname = &apos;ZLOGO_DANFE&apos;.</FPCLINE>
       <FPCLINE>PERFORM f_get_logo USING lv_tdobname</FPCLINE>
-      <FPCLINE>                   CHANGING GV_LOGO.</FPCLINE>
+      <FPCLINE>                   CHANGING gv_logo.</FPCLINE>
       <FPCLINE>CLEAR: lv_tdobname.</FPCLINE>
+      <FPCLINE/>
+      <FPCLINE>lv_qrcode_txt = gs_dados-qrcode.</FPCLINE>
+      <FPCLINE/>
+      <FPCLINE>TRY.</FPCLINE>
+      <FPCLINE>    CALL METHOD cl_rstx_barcode_renderer=&gt;qr_code</FPCLINE>
+      <FPCLINE>      EXPORTING</FPCLINE>
+      <FPCLINE>        i_module_size      = 20              &quot; Size of smallest module (in pixel, max: 32000)</FPCLINE>
+      <FPCLINE>        i_mode             = &apos;A&apos;              &quot; Mode (&apos;N&apos;, &apos;A&apos;, &apos;L&apos;, &apos;B&apos;, &apos;K&apos;, &apos;U&apos;, &apos;1&apos;, &apos;2&apos;; note 2030263)</FPCLINE>
+      <FPCLINE>        i_error_correction = &apos;H&apos;              &quot; Error correction (&apos;L&apos;, &apos;M&apos;, &apos;Q&apos;, &apos;H&apos;)</FPCLINE>
+      <FPCLINE>*       i_rotation         = 0                &quot; Rotation (0, 90, 180 or 270)</FPCLINE>
+      <FPCLINE>        i_barcode_text     = lv_qrcode_txt  &quot; Barcode text</FPCLINE>
+      <FPCLINE>      IMPORTING</FPCLINE>
+      <FPCLINE>        e_bitmap           = gv_img_qrcode.    &quot; Bitmap in BMP format</FPCLINE>
+      <FPCLINE>  CATCH cx_rstx_barcode_renderer. &quot; Exception class of CL_RSTX_BARCODE_RENDERER</FPCLINE>
+      <FPCLINE>ENDTRY.</FPCLINE>
      </INITIALIZATION>
      <FORMS>
       <FPCLINE>FORM f_get_logo USING    uv_name    TYPE tdobname</FPCLINE>
